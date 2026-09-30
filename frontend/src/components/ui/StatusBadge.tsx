@@ -1,0 +1,2 @@
+const C:Record<string,string>={Approved:'bg-green-100 text-green-700',Verified:'bg-green-100 text-green-700',Passed:'bg-green-100 text-green-700','Review Required':'bg-amber-100 text-amber-700',Pending:'bg-amber-100 text-amber-700',Rejected:'bg-red-100 text-red-700',Blocked:'bg-red-100 text-red-700',Failed:'bg-red-100 text-red-700'}
+export default function StatusBadge({label}:{label:string}){return <span className={`px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap ${C[label]??'bg-indigo-100 text-indigo-700'}`}>{label}</span>}
