@@ -1,0 +1,8 @@
+streamlit>=1.38.0
+pypdf>=4.2.0
+pymupdf>=1.24.0
+pillow>=10.4.0
+pytesseract>=0.3.13
+python-dotenv>=1.0.1
+openai>=1.68.0,<4
+pytest>=8.0.0

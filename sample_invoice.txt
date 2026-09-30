@@ -1,0 +1,11 @@
+ABC Traders
+INVOICE
+
+Invoice Number: AI003
+Invoice Date: 30-09-2026
+PO Number: PO500
+
+Item: Laptop
+Quantity: 10
+Unit Price: 100
+Total Amount: 1000
