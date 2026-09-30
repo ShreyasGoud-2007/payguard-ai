@@ -1,0 +1,1 @@
+export default function LoadingState({rows=4}:{rows?:number}){return <div className="animate-pulse space-y-2">{Array.from({length:rows},(_,i)=><div key={i} className="h-8 bg-slate-200 rounded"/>)}</div>}

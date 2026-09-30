@@ -1,0 +1,2 @@
+import {LucideIcon} from 'lucide-react'
+export default function KPICard({label,value,note,icon:Icon}:{label:string;value:string|number;note:string;icon:LucideIcon}){return(<div className="card !mb-0"><div className="flex justify-between text-slate-500 text-xs">{label}<Icon size={16}/></div><div className="text-2xl font-bold">{value}</div><div className="text-xs text-slate-500">{note}</div></div>)}
