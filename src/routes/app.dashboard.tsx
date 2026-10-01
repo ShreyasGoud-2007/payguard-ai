@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PayGuardShell } from "@/components/payguard/PayGuardShell";
+export const Route = createFileRoute("/app/dashboard")({ head: () => ({ meta: [{ title: "Dashboard · PayGuard AI" }, { name: "description", content: "Live accounts payable operations command center." }, { property: "og:title", content: "Dashboard · PayGuard AI" }, { property: "og:description", content: "Live accounts payable operations command center." }] }), component: () => <PayGuardShell section="dashboard" /> });

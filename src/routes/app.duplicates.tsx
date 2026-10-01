@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PayGuardShell } from "@/components/payguard/PayGuardShell";
+export const Route = createFileRoute("/app/duplicates")({ head: () => ({ meta: [{ title: "Duplicates · PayGuard AI" }, { name: "description", content: "Catch repeated invoices before they become payments." }, { property: "og:title", content: "Duplicates · PayGuard AI" }, { property: "og:description", content: "Catch repeated invoices before they become payments." }] }), component: () => <PayGuardShell section="duplicates" /> });

@@ -2,17 +2,42 @@
 
 PayGuard AI is an Accounts Payable control system that verifies invoices against approved purchase orders and goods receipts before they enter the payable ledger.
 
-## Overview
+This project consists of:
+- **Backend**: Python-based invoice verification engine with OCR and AI capabilities
+- **Frontend**: React/TypeScript web application with 3D visualization
+
+---
+
+## Frontend (3D Web Interface)
+
+This project was built with [Lovable](https://lovable.dev) and provides a modern web interface for PayGuard AI.
+
+### Frontend Development
+
+You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+
+```sh
+npm i
+npm run dev
+```
+
+Continue developing in the [Lovable editor](https://lovable.dev/projects/f948e624-91b0-4644-a625-af371f58c2b8).
+
+---
+
+## Backend (Python Invoice Verification)
+
+### Overview
 
 This system checks whether an invoice matches an approved purchase order, is supported by goods receipts, and has the expected prices and quantities before a human reviewer decides whether the invoice can proceed.
 
 Backend setup, Nova sync, Supabase migrations, API flow, and test instructions are in [backend/README.md](backend/README.md) (if applicable).
 
-## Problem Statement
+### Problem Statement
 
 A vendor invoice should not become a payable obligation just because it was received. The system checks the invoice against approved PO and receipt data before flagging a case for human review.
 
-## Architecture
+### Architecture
 
 The prototype has a simple layered design:
 
@@ -39,7 +64,7 @@ Show PASSED / REVIEW REQUIRED / INCOMPLETE
 Save results and audit evidence
 ```
 
-## AI Explanation and Privacy
+### AI Explanation and Privacy
 
 The provider is opt-in. `AI_PROVIDER` defaults to `disabled`; in that mode the application makes no model call and displays the existing deterministic explanation. To enable OpenAI, add settings to your local `.env` file (which is ignored by Git):
 
@@ -55,7 +80,7 @@ The OpenAI provider receives only the deterministic verification status, named c
 
 The deterministic risk analysis is available from `paygard_ai.risk_analysis.analyze_invoice_risk(invoice, verification_report)`. The optional provider boundary is in `paygard_ai.ai_provider`; both layers preserve the verifier's original status and evidence. No probability score is produced.
 
-## OCR and Local Demo Mode
+### OCR and Local Demo Mode
 
 With the default `AI_PROVIDER=disabled`, the app runs in offline local mode. Text files and text-based PDF pages use local parsing. Scanned PDFs, PNGs, and JPG/JPEG files use Tesseract OCR; scanned PDF pages are rendered with PyMuPDF. Each page is processed in order, and raw OCR text is stored separately from structured invoice fields.
 
@@ -73,7 +98,7 @@ tesseract --version
 
 If this command is unavailable, the dashboard displays an OCR setup error and saves the attempt as `INCOMPLETE`; it never treats OCR text as a verification pass. Invalid or uncertain financial fields are retained as raw OCR text and routed to review. OCR confidence is separate from PO/receipt verification.
 
-## Setup
+### Backend Setup
 
 1. Create and activate a virtual environment.
 2. Install dependencies:
@@ -116,7 +141,7 @@ Run all automated tests with:
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
-## Sample Data and Demo Flow
+### Sample Data and Demo Flow
 
 The seeded demo data includes:
 
@@ -129,7 +154,7 @@ The seeded demo data includes:
 
 The default sample file is `sample_invoice.txt` with the same matching values. It should pass as a normal demo case.
 
-## End-to-End Synthetic Workflow Demo
+### End-to-End Synthetic Workflow Demo
 
 Run the full isolated six-case demo with:
 
@@ -167,7 +192,7 @@ The six expected outcomes are:
 
 For any review-required or incomplete upload, the dashboard offers explicit reviewer, decision, and notes fields. Saving a decision creates a review-history row and a linked audit event; it does not change verification status or authorize payment.
 
-### Two-Minute Presentation
+#### Two-Minute Presentation
 
 1. Run the synthetic demo and point out that it creates a separate database and clearly labeled test invoices.
 2. Show the matching invoice passing PO, amount, and receipt checks.
@@ -176,7 +201,7 @@ For any review-required or incomplete upload, the dashboard offers explicit revi
 5. Open the dashboard with the printed demo DB path, inspect the evidence and deterministic explanation, and record a review decision with notes. Emphasize that this records review only; PayGuard never initiates payment.
 6. State that the demo uses no real AI API call by default.
 
-## Data Sources and Future Imports
+### Data Sources and Future Imports
 
 PayGuard labels newly created reference rows with their origin: demo seed rows are `DEMO`, invoices processed from uploaded files are `UPLOAD`, and rows that existed before source tracking was added remain `LEGACY` because their origin cannot be proven retroactively. The dashboard shows counts by source. These labels describe local PayGuard records.
 
@@ -208,14 +233,14 @@ The importer deliberately refuses the configured live `paygard.db` unless `allow
 
 Persisted imports create a `data_import_runs` history row in the same transaction as the imported PO/receipt rows. The dashboard's **Data import status** section shows recent persisted-run counts, mapping confirmation, or explicitly reports that there is no import. Preview results are returned to the caller but intentionally are not saved to SQLite.
 
-## Security and Privacy
+### Security and Privacy
 
 - Uploads are validated by type and size.
 - Files are stored only in the project when the user chooses to keep them.
 - Secrets stay in environment variables or `.env`.
 - Invoice images and raw OCR documents are not sent to the AI provider. When explicitly enabled, only the structured verification evidence described above is sent; default mode is offline.
 
-## Current Limitations
+### Current Limitations
 
 - OCR requires the separately installed Tesseract executable; OCR unit tests mock the engine and do not prove real OCR quality.
 - Invoice layout parsing uses conservative patterns. Complex tables and low-quality scans may require human review.
@@ -223,7 +248,7 @@ Persisted imports create a `data_import_runs` history row in the same transactio
 - This is a prototype verification tool, not an approval engine.
 - A technical pass is not payment authorization.
 
-## Future Scope
+### Future Scope
 
 - Multi-line PO matching and line-item reconciliation
 - Better OCR and PDF table extraction
