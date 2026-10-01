@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyc
 
 # Virtual environments
 venv/
@@ -24,3 +25,11 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Test cache
+.pytest_cache/
