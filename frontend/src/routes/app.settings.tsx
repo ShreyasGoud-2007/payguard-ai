@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PayGuardShell } from "@/components/payguard/PayGuardShell";
+export const Route = createFileRoute("/app/settings")({ head: () => ({ meta: [{ title: "Settings · PayGuard AI" }, { name: "description", content: "Configure PayGuard AI control room settings." }, { property: "og:title", content: "Settings · PayGuard AI" }, { property: "og:description", content: "Configure PayGuard AI control room settings." }] }), component: () => <PayGuardShell section="settings" /> });
